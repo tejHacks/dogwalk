@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "DogWalk",
+    "slug": "dogwalk",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "dogwalk",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.olateju.dogwalk",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.olateju.dogwalk",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#0284C7"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0284C7",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 160
+        }
+      ],
+      "expo-localization"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
