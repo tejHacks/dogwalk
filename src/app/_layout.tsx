@@ -1,10 +1,10 @@
-import { DarkTheme, DefaultTheme, ThemeProvider, Stack } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { brand } from '@/brand';
+import { loadToken } from '@/lib/api';
 import { usePalette } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -14,7 +14,7 @@ export default function RootLayout() {
   const c = usePalette();
 
   useEffect(() => {
-    SplashScreen.hideAsync().catch(() => {});
+    loadToken().finally(() => SplashScreen.hideAsync().catch(() => {}));
   }, []);
 
   const base = scheme === 'dark' ? DarkTheme : DefaultTheme;
@@ -27,11 +27,23 @@ export default function RootLayout() {
           headerStyle: { backgroundColor: c.bg },
           headerTintColor: c.text,
           headerTitleStyle: { fontWeight: '700' },
+          headerBackButtonDisplayMode: 'minimal',
           contentStyle: { backgroundColor: c.bg },
         }}>
-        {brand.screens.map((s) => (
-          <Stack.Screen key={s.name} name={s.name} options={{ title: s.title, headerShown: !s.hideHeader, presentation: s.modal ? 'modal' : undefined }} />
-        ))}
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="welcome" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="signup" options={{ title: '' }} />
+        <Stack.Screen name="login" options={{ title: '' }} />
+        <Stack.Screen name="forgot-password" options={{ title: '' }} />
+        <Stack.Screen name="verify" options={{ title: '' }} />
+        <Stack.Screen name="reset-password" options={{ title: '' }} />
+        <Stack.Screen name="setup/customer" options={{ title: 'Your dog', headerBackVisible: false, gestureEnabled: false }} />
+        <Stack.Screen name="setup/walker" options={{ title: 'Walker profile', headerBackVisible: false, gestureEnabled: false }} />
+        <Stack.Screen name="(customer)" options={{ headerShown: false }} />
+        <Stack.Screen name="(walker)" options={{ headerShown: false }} />
+        <Stack.Screen name="walker/[id]" options={{ title: '' }} />
+        <Stack.Screen name="walk/[id]" options={{ title: 'Walk' }} />
       </Stack>
     </ThemeProvider>
   );

@@ -1,38 +1,16 @@
 /**
- * SAMPLE DATA — placeholder walkers for building the UI.
- * Replace with your backend (e.g. Supabase) before launch.
+ * Sample walkers so customers have someone to book before the backend exists.
+ * Walkers who sign up on this phone appear alongside them.
  */
-export interface Walker {
-  id: string;
-  name: string;
-  area: string;
-  pricePer30: number;
-  rating: number;
-  walks: number;
-  bio: string;
-  emoji: string;
-  verified: boolean;
-}
+import type { DogSize, WalkerProfile } from './types';
 
-export const walkers: Walker[] = [
-  { id: 'w1', name: 'Tobi A.', area: 'Bodija, Ibadan', pricePer30: 3000, rating: 4.9, walks: 212, bio: 'Grew up with Alsatians. Calm with big, strong dogs.', emoji: '🧑🏾', verified: true },
-  { id: 'w2', name: 'Kemi O.', area: 'Jericho, Ibadan', pricePer30: 2500, rating: 4.8, walks: 140, bio: 'Vet nursing student. Great with puppies and seniors.', emoji: '👩🏾', verified: true },
-  { id: 'w3', name: 'David E.', area: 'UI, Ibadan', pricePer30: 2000, rating: 4.6, walks: 58, bio: 'Morning runner — perfect for high-energy dogs.', emoji: '🧑🏿', verified: false },
-  { id: 'w4', name: 'Amaka N.', area: 'Ring Road, Ibadan', pricePer30: 2800, rating: 4.9, walks: 301, bio: 'Small-breed specialist. Sends photos every walk.', emoji: '👩🏿', verified: true },
+export const sampleWalkers: WalkerProfile[] = [
+  { userId: 'w1', name: 'Tobi Adeyemi', area: 'Bodija, Ibadan', pricePer30: 3000, rating: 4.9, walks: 212, bio: 'Grew up with Alsatians. Calm and confident with big, strong dogs.', sizes: ['medium', 'large'], yearsExperience: 6, idStatus: 'verified', available: true },
+  { userId: 'w2', name: 'Kemi Okafor', area: 'Jericho, Ibadan', pricePer30: 2500, rating: 4.8, walks: 140, bio: 'Vet nursing student. Gentle with puppies and senior dogs.', sizes: ['small', 'medium'], yearsExperience: 3, idStatus: 'verified', available: true },
+  { userId: 'w3', name: 'David Eze', area: 'UI, Ibadan', pricePer30: 2000, rating: 4.6, walks: 58, bio: 'Morning runner, perfect for high-energy dogs that need a proper workout.', sizes: ['medium', 'large'], yearsExperience: 2, idStatus: 'pending', available: true },
+  { userId: 'w4', name: 'Amaka Nwosu', area: 'Ring Road, Ibadan', pricePer30: 2800, rating: 4.9, walks: 301, bio: 'Small-breed specialist. Sends photos and a note after every walk.', sizes: ['small'], yearsExperience: 5, idStatus: 'verified', available: false },
 ];
 
-export const getWalker = (id: string) => walkers.find((w) => w.id === id);
 export const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
 
-export interface Booking {
-  id: string;
-  walkerId: string;
-  dogName: string;
-  date: string; // YYYY-MM-DD
-  time: string; // HH:MM
-  minutes: 30 | 60;
-  status: 'upcoming' | 'in-progress' | 'done';
-  startedAt?: number;
-  endedAt?: number;
-  notes?: string;
-}
+export const sizeLabel: Record<DogSize, string> = { small: 'Small (under 10 kg)', medium: 'Medium (10–25 kg)', large: 'Large (25 kg+)' };
