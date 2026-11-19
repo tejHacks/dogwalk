@@ -25,7 +25,8 @@ export default function WalkerProfileScreen() {
   const [dogId, setDogId] = useState(myDogs[0]?.id);
 
   if (!walker) return <Screen><Empty icon="help-circle-outline" title="Walker not found" body="They may no longer be on DogWalk." /></Screen>;
-  const dog = myDogs.find((d) => d.id === dogId);
+  // Saved dogs load after the first render, so fall back to the first dog rather than the initial (empty) choice.
+  const dog = myDogs.find((d) => d.id === dogId) ?? myDogs[0];
   const price = walker.pricePer30 * (minutes / 30);
   const canWalkDog = !dog || walker.sizes.includes(dog.size);
 
@@ -68,7 +69,7 @@ export default function WalkerProfileScreen() {
             <Label>Dog</Label>
             <Row style={{ flexWrap: 'wrap' }}>
               {myDogs.map((d) => (
-                <Pill key={d.id} active={d.id === dogId} onPress={() => setDogId(d.id)}>{d.name}</Pill>
+                <Pill key={d.id} active={d.id === dog?.id} onPress={() => setDogId(d.id)}>{d.name}</Pill>
               ))}
             </Row>
           </View>

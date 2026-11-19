@@ -118,3 +118,15 @@ it('forgot password: code, new password, then log in with it', async () => {
   expect(await screen.findByText('Password updated')).toBeOnTheScreen();
   expect((await demoAuth.logIn('ada@example.com', 'freshstart9')).name).toBe('Ada Bello');
 });
+
+it('a returning customer with one dog can book straight away', async () => {
+  await AsyncStorage.multiSet([
+    ['onboarded', 'true'],
+    ['session', JSON.stringify({ id: 'c1', name: 'Ada Bello', email: 'ada@example.com', phone: '08031234567', role: 'customer', emailVerified: true, profileComplete: true })],
+    ['dogs', JSON.stringify([{ id: 'd1', ownerId: 'c1', name: 'Bingo', breed: '', size: 'large', ageYears: 3, notes: '' }])],
+  ]);
+  await open('/walker/w1');
+  const button = await screen.findByText('Request walk for Bingo');
+  await fireEvent.press(button);
+  expect(await screen.findByText('Waiting for walker')).toBeOnTheScreen();
+});
